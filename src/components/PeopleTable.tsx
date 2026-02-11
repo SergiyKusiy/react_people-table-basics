@@ -28,15 +28,18 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedSlug }) => (
       {people.map(person => {
         const isSelected = person.slug === selectedSlug;
 
-        const motherName = person.motherName?.toLowerCase().trim() || null;
-        const fatherName = person.fatherName?.toLowerCase().trim() || null;
+        const motherName = person.motherName?.trim() || null;
+        const fatherName = person.fatherName?.trim() || null;
 
-        const mother = motherName
-          ? people.find(p => p.name.toLowerCase().trim() === motherName)
+        const motherKey = motherName?.toLowerCase() || null;
+        const fatherKey = fatherName?.toLowerCase() || null;
+
+        const mother = motherKey
+          ? people.find(p => p.name.toLowerCase().trim() === motherKey)
           : null;
 
-        const father = fatherName
-          ? people.find(p => p.name.toLowerCase().trim() === fatherName)
+        const father = fatherKey
+          ? people.find(p => p.name.toLowerCase().trim() === fatherKey)
           : null;
 
         return (
@@ -54,8 +57,8 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedSlug }) => (
             <td>
               {mother ? (
                 <PersonLink person={mother} />
-              ) : person.motherName ? (
-                person.motherName
+              ) : motherName ? (
+                <span className="has-text-danger">{motherName}</span>
               ) : (
                 '-'
               )}
@@ -63,8 +66,8 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedSlug }) => (
             <td>
               {father ? (
                 <PersonLink person={father} />
-              ) : person.fatherName ? (
-                person.fatherName
+              ) : fatherName ? (
+                fatherName
               ) : (
                 '-'
               )}

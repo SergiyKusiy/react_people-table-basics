@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { Person } from '../types/Person';
+import { Person } from '../types';
 
 type Props = {
   person: Person | null | undefined;
@@ -10,7 +10,9 @@ type Props = {
 
 export const PersonLink: React.FC<Props> = ({ person, fallback }) => {
   if (!person) {
-    return <>{fallback || '-'}</>;
+    const normalizedFallback = fallback?.trim();
+
+    return <>{normalizedFallback || '-'}</>;
   }
 
   return (
